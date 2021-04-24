@@ -10,7 +10,7 @@ var _moving := false
 var _start_location := Vector2.ZERO
 var _target_location := Vector2.ZERO
 var _accumulated_time := 0.0
-
+var _playable_area := Rect2(0,0,Game.WIDTH * Game.TILE_WIDTH, Game.HEIGHT * Game.TILE_HEIGHT)
 
 func _physics_process(delta):
 	if not _moving:
@@ -35,6 +35,12 @@ func _physics_process(delta):
 		_accumulated_time += delta
 		var percent := min(_accumulated_time / _seconds_per_tile, 1.0)
 		var destination = _start_location.linear_interpolate(_target_location, percent)
+		
+		if not _playable_area.has_point(destination):
+			_moving = false
+			_accumulated_time = 0
+			return
+		
 		var collision := move_and_collide(destination - position)
 		if collision != null:
 			# If players run into each other, both are obliterated
@@ -51,8 +57,8 @@ func _physics_process(delta):
 		if percent >= 1.0:
 			_moving= false
 			_accumulated_time = 0
-		
-	
+
+
 func _draw():
 	draw_rect(Rect2(0,0, Game.TILE_WIDTH, Game.TILE_HEIGHT), Color.rebeccapurple)
 

@@ -11,6 +11,6 @@ func _draw():
 func _physics_process(delta):
 	var collision := move_and_collide(_direction * speed * delta)
 	if collision != null:
-		if collision.collider.is_in_group("tiles"):
+		if collision.collider.is_in_group("tiles") or collision.collider.is_in_group("barriers"):
 			_direction *= -1
 			

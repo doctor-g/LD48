@@ -42,7 +42,7 @@ func _add_barriers():
 
 func _add_barrier(x:int, y:int)->void:
 	var barrier := StaticBody2D.new()
-	barrier.add_to_group("tiles")
+	barrier.add_to_group("barriers")
 	var collision := CollisionShape2D.new()
 	collision.position = Game.TILE_SIZE / 2
 	collision.shape = RectangleShape2D.new()
