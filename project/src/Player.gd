@@ -84,7 +84,7 @@ func _physics_process(delta):
 			# If a player runs into dirt, dig it out
 			elif collision.collider.is_in_group("tiles"):
 				Game.add_points(index, collision.collider.value)
-				collision.collider.queue_free()
+				collision.collider.dig();
 			
 		if percent >= 1.0:
 			_moving= false

@@ -10,7 +10,6 @@ signal game_over
 
 
 const DirtTile := preload("res://src/Tiles/DirtTile.tscn")
-const GemTile := preload("res://src/Tiles/GemTile.tscn")
 const _GEM_CHANCE := 0.05
 
 var _player_spawn_points := [ 2,0, Game.WIDTH-3,0 ]
@@ -40,9 +39,14 @@ func _ready():
 	for i in range(0, Game.WIDTH):
 		for j in range(1, Game.HEIGHT):
 			if not _is_player_spawn_point(i,j) and not _is_open_point(i,j):
-				var tile : Node2D = (GemTile if randf()<_GEM_CHANCE else DirtTile).instance()
+				var tile : Node2D = DirtTile.instance()
 				add_child(tile)
-				tile.position = Vector2(i * Game.TILE_WIDTH, j * Game.TILE_HEIGHT)
+				var tile_position = Vector2(i * Game.TILE_WIDTH, j * Game.TILE_HEIGHT)
+				tile.position = tile_position
+				if randf() < 0.05:
+					var diamond :Node2D= preload("res://src/Tiles/Diamond.tscn").instance()
+					diamond.position = tile_position
+					add_child(diamond)
 
 	# Make the players
 	for i in range(0,2):
