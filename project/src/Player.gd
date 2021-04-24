@@ -29,7 +29,7 @@ func _physics_process(delta):
 	
 	if _can_shoot() and Input.is_action_just_pressed(_prefixed("fire")):
 		var projectile : Node2D = preload("res://src/Projectile.tscn").instance()
-		projectile.position = position
+		projectile.position = position + _facing * Game.TILE_WIDTH/2
 		projectile.direction = _facing
 		projectile.creator = self
 		get_parent().add_child(projectile)
