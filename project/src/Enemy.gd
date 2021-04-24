@@ -58,3 +58,7 @@ func _on_StunTimer_timeout():
 	_stunned = false
 	_color = Color.green
 	update()
+
+
+func set_direction(direction:Vector2):
+	_direction = direction
