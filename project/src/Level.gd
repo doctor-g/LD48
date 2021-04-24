@@ -13,7 +13,7 @@ const DirtTile := preload("res://src/Tiles/DirtTile.tscn")
 const GemTile := preload("res://src/Tiles/GemTile.tscn")
 const _GEM_CHANCE := 0.05
 
-var _player_spawn_points := [ 0,0, 6,0 ]
+var _player_spawn_points := [ 2,0, Game.WIDTH-3,0 ]
 var _open_points := [ 1,4, 2,4, 3,4 ]
 var _monster_spawn_points := []
 
@@ -36,8 +36,9 @@ func _ready():
 			_open_points.append_array([x-1, y, x, y, x+1, y])
 	
 	# Populate the level
+	# No tiles on the first row.
 	for i in range(0, Game.WIDTH):
-		for j in range(0, Game.HEIGHT):
+		for j in range(1, Game.HEIGHT):
 			if not _is_player_spawn_point(i,j) and not _is_open_point(i,j):
 				var tile : Node2D = (GemTile if randf()<_GEM_CHANCE else DirtTile).instance()
 				add_child(tile)

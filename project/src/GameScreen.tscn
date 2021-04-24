@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/UI/HUD.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/GameScreen.gd" type="Script" id=4]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.171233, 0.356164, 0.626712, 1 )
+colors = PoolColorArray( 0.435294, 0.960784, 1, 1, 0.568627, 0.466667, 0.215686, 1, 0.359375, 0.292522, 0.134766, 1, 0.184314, 0.137255, 0.0627451, 1, 0.0352941, 0.0196078, 0.0117647, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+width = 960
 
 [node name="GameScreen" type="Control"]
 pause_mode = 2
@@ -13,7 +21,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Background" type="Node2D" parent="."]
+position = Vector2( 960, 0 )
+rotation = 1.5708
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+margin_right = 960.0
+margin_bottom = 960.0
+texture = SubResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Level" parent="." instance=ExtResource( 1 )]
-position = Vector2( 0, 40 )
+position = Vector2( 0, 64 )
 
 [node name="HUD" parent="." instance=ExtResource( 2 )]
