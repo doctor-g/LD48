@@ -45,7 +45,6 @@ func stun():
 
 
 func damage():
-	print("Enemy has died")
 	_dead = true
 	emit_signal("died")
 	queue_free()

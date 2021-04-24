@@ -15,6 +15,7 @@ const _GEM_CHANCE := 0.05
 
 var player_spawn_points := [ 0,0, 6,0 ]
 var open_points := [ 1,4, 2,4, 3,4 ]
+var monster_spawn_points := []
 
 var _remaining_players := 2
 
@@ -22,6 +23,14 @@ onready var _enemies := $Enemies
 
 func _ready():
 	_add_barriers()
+	
+	var center_x_options := range(1, Game.WIDTH-2)
+	var center_y_options := range(2, Game.HEIGHT)
+	for _i in range(0,4):
+		var x = center_x_options[randi() % center_x_options.size()]
+		var y = center_y_options[randi() % center_y_options.size()]
+		monster_spawn_points.append_array([x,y])
+		open_points.append_array([x-1, y, x, y, x+1, y])
 	
 	# Populate the level
 	for i in range(0, Game.WIDTH):
@@ -40,11 +49,13 @@ func _ready():
 		player.connect("died", self, "_on_Player_died")
 		add_child(player)
 	
-	var enemy := preload("res://src/Enemy.tscn").instance()
-	enemy.position.x = open_points[0] * Game.TILE_WIDTH
-	enemy.position.y = open_points[1] * Game.TILE_HEIGHT
-	_enemies.add_child(enemy)
-	enemy.connect("died", self, "_on_Enemy_died")
+	# Make the enemies
+	for i in range(0, monster_spawn_points.size(), 2):
+		var enemy := preload("res://src/Enemy.tscn").instance()
+		enemy.position.x = monster_spawn_points[i] * Game.TILE_WIDTH
+		enemy.position.y = monster_spawn_points[i+1] * Game.TILE_HEIGHT
+		_enemies.add_child(enemy)
+		enemy.connect("died", self, "_on_Enemy_died")
 
 
 func _add_barriers():
