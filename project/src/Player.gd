@@ -20,8 +20,12 @@ var _stunned := false
 var _dead := false # Timing issues can cause death to happen more than once,
 				   # so track it here to make sure we don't emit the signal twice.
 
+onready var _sprite := $Sprite
 onready var _shot_cooldown_timer := $ShotCooldownTimer
 onready var _stun_timer := $StunTimer
+
+func _ready():
+	_sprite.frames = load("res://assets/Styles/player_%d_spriteframes.tres" % (index+1))
 
 func _physics_process(delta):
 	if _stunned:
@@ -57,6 +61,22 @@ func _physics_process(delta):
 			_start_location = position
 			_target_location = position + Game.TILE_SIZE * input_direction
 			_moving = true
+			_sprite.playing = true
+			match _facing:
+				Vector2.RIGHT:
+					_sprite.flip_h = false
+					_sprite.rotation = 0
+				Vector2.LEFT:
+					_sprite.flip_h = true
+					_sprite.rotation = 0
+				Vector2.UP:
+					_sprite.rotation_degrees = -90
+					_sprite.flip_h = false
+				Vector2.DOWN:
+					_sprite.rotation_degrees = 90
+					_sprite.flip_h = false
+		else:
+			_sprite.playing = false
 	
 	else:
 		_accumulated_time += delta
@@ -103,11 +123,6 @@ func _set_index(value:int)->void:
 	assert (value>=0)
 	index = value
 	_prefix = Game.form_action_prefix(index)
-
-
-func _draw():
-	draw_rect(Rect2(0,0, Game.TILE_WIDTH, Game.TILE_HEIGHT), \
-		Color.whitesmoke if _stunned else Color.rebeccapurple)
 
 
 func _set_speed(value:float)->void:

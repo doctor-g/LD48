@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
+[ext_resource path="res://assets/Styles/player_1_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://src/Player.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -21,5 +22,12 @@ one_shot = true
 [node name="StunTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 32, 32 )
+frames = ExtResource( 1 )
+animation = "walk"
+centered = false
+offset = Vector2( -32, -32 )
 
 [connection signal="timeout" from="StunTimer" to="." method="_on_StunTimer_timeout"]
