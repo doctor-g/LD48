@@ -1,6 +1,8 @@
 class_name Player
 extends KinematicBody2D
 
+signal died
+
 # The player "number", starting with zero.
 export var index := 0 setget _set_index
 export var speed := 220.0 setget _set_speed
@@ -109,4 +111,5 @@ func _compute_seconds_per_tile()->float:
 
 func damage():
 	print("Alas, I am dead")
+	emit_signal("died")
 	queue_free()

@@ -3,12 +3,20 @@ extends Node2D
 # Emitted when all enemies are removed
 signal complete
 
+# Emitted when the game is over.
+# This happens if one player dies and all enemies are removed,
+# or if both players died.
+signal game_over
+
+
 const DirtTile := preload("res://src/Tiles/DirtTile.tscn")
 const GemTile := preload("res://src/Tiles/GemTile.tscn")
 const _GEM_CHANCE := 0.05
 
 var player_spawn_points := [ 0,0, 6,0 ]
 var open_points := [ 1,4, 2,4, 3,4 ]
+
+var _remaining_players := 2
 
 onready var _enemies := $Enemies
 
@@ -29,6 +37,7 @@ func _ready():
 		player.index = i
 		player.position.x = player_spawn_points[0 + i*2] * Game.TILE_WIDTH
 		player.position.y = player_spawn_points[1 + i*2] * Game.TILE_HEIGHT
+		player.connect("died", self, "_on_Player_died")
 		add_child(player)
 	
 	var enemy := preload("res://src/Enemy.tscn").instance()
@@ -77,5 +86,14 @@ func _is_open_point(x:int, y:int)->bool:
 
 func _on_Enemy_tree_exited()->void:
 	if _enemies.get_child_count() == 0:
-		print("Level Complete")
-		emit_signal("complete")
+		if _remaining_players == 2:
+			emit_signal("complete")
+		else:
+			emit_signal("game_over")
+
+
+func _on_Player_died()->void:
+	_remaining_players -= 1
+	if _remaining_players == 0:
+		emit_signal("game_over")
+	

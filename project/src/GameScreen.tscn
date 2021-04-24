@@ -17,5 +17,3 @@ __meta__ = {
 position = Vector2( 0, 40 )
 
 [node name="HUD" parent="." instance=ExtResource( 2 )]
-
-[connection signal="complete" from="Level" to="." method="_on_Level_complete"]
