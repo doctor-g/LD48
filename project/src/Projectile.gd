@@ -9,6 +9,9 @@ func _physics_process(delta):
 	for body in get_overlapping_bodies():
 		if body.is_in_group("tiles") or body.is_in_group("barriers"):
 			queue_free()
+		elif body.is_in_group("enemies"):
+			body.stun()
+			queue_free()
 
 
 func _draw():

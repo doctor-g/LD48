@@ -61,7 +61,10 @@ func _physics_process(delta):
 				damage()
 			# If a player runs into an enemy, it is obliterated
 			elif collision.collider.is_in_group("enemies"):
-				damage()
+				if collision.collider.is_stunned():
+					collision.collider.damage()
+				else:
+					damage()
 			# If a player runs into dirt, dig it out
 			elif collision.collider.is_in_group("tiles"):
 				collision.collider.queue_free()
