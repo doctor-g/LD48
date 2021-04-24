@@ -1,6 +1,31 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/Screens/TitleScreen.gd" type="Script" id=1]
+[ext_resource path="res://assets/Fonts/RammettoOne/RammettoOne-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://src/UI/ClickinLabel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/Styles/clickin_font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://assets/Fonts/NotoSansJP/NotoSansJP-Medium.otf" type="DynamicFontData" id=5]
+
+[sub_resource type="Gradient" id=1]
+colors = PoolColorArray( 0.839844, 0.413361, 0, 1, 0.84375, 0.643524, 0.0428467, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+width = 960
+
+[sub_resource type="DynamicFont" id=3]
+size = 96
+outline_size = 5
+outline_color = Color( 0.921569, 0.372549, 0.0470588, 1 )
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+outline_size = 1
+outline_color = Color( 0.721569, 0.364706, 0.12549, 1 )
+use_filter = true
+font_data = ExtResource( 5 )
 
 [node name="TitleScreen" type="Control"]
 anchor_right = 1.0
@@ -10,25 +35,75 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -48.5
-margin_top = -7.0
-margin_right = 48.5
-margin_bottom = 7.0
-text = "The Game Title"
+[node name="Background" type="Node2D" parent="."]
+position = Vector2( 960, 0 )
+rotation = 1.5708
 
-[node name="Button" type="Button" parent="."]
-margin_left = 497.121
-margin_top = 564.83
-margin_right = 535.121
-margin_bottom = 584.83
-text = "Play"
+[node name="TextureRect" type="TextureRect" parent="Background"]
+margin_right = 960.0
+margin_bottom = 960.0
+texture = SubResource( 2 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[node name="Title" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -380.0
+margin_top = -81.5
+margin_right = 380.0
+margin_bottom = 81.5
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color_shadow = Color( 0.27451, 0.141176, 0, 1 )
+custom_constants/shadow_offset_x = 8
+custom_constants/shadow_offset_y = 10
+text = "Goober Bros."
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = 115.817
+margin_bottom = 115.817
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ClickinLabel" parent="HBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 478.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 4 )
+align = 1
+pre_text = "Click to Play"
+
+[node name="ClickinLabel2" parent="HBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 482.0
+margin_right = 960.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 4 )
+align = 1
+pre_text = "Click to Play"
+index = 1
+
+[node name="Label" type="Label" parent="."]
+margin_left = 181.743
+margin_top = 771.518
+margin_right = 751.743
+margin_bottom = 870.518
+custom_fonts/font = SubResource( 4 )
+text = "Player 1: Gamepad or WASD+Z
+Player 2: Gamepad or ↑←↓→+Space"
+
+[connection signal="done" from="HBoxContainer/ClickinLabel" to="." method="_on_ClickinLabel_done"]
+[connection signal="done" from="HBoxContainer/ClickinLabel2" to="." method="_on_ClickinLabel_done"]
