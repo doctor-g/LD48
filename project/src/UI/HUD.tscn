@@ -2,10 +2,10 @@
 
 [ext_resource path="res://src/UI/HUD.gd" type="Script" id=1]
 [ext_resource path="res://assets/Styles/score_font.tres" type="DynamicFont" id=2]
-[ext_resource path="res://assets/Fonts/Kenney/Kenney Pixel.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/Fonts/NotoSansJP/NotoSansJP-Medium.otf" type="DynamicFontData" id=3]
 
 [sub_resource type="DynamicFont" id=1]
-size = 32
+size = 18
 outline_size = 1
 outline_color = Color( 0.196078, 0.196078, 0.196078, 1 )
 use_filter = true
@@ -21,7 +21,7 @@ __meta__ = {
 
 [node name="SmallLabels" type="HBoxContainer" parent="."]
 margin_right = 960.0
-margin_bottom = 24.0
+margin_bottom = 27.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -29,25 +29,25 @@ __meta__ = {
 
 [node name="Player1Label" type="Label" parent="SmallLabels"]
 margin_right = 478.0
-margin_bottom = 24.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 1 )
-text = "P1"
+text = "Player 1"
 align = 1
 
 [node name="Player2Label" type="Label" parent="SmallLabels"]
 margin_left = 482.0
 margin_right = 960.0
-margin_bottom = 24.0
+margin_bottom = 27.0
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 1 )
-text = "P2"
+text = "Player 2"
 align = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_top = 28.0
+margin_top = 31.0
 margin_right = 960.0
-margin_bottom = 76.0
+margin_bottom = 79.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
