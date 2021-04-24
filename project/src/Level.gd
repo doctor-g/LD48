@@ -1,11 +1,16 @@
 extends Node2D
 
+# Emitted when all enemies are removed
+signal complete
+
 const DirtTile := preload("res://src/Tiles/DirtTile.tscn")
 const GemTile := preload("res://src/Tiles/GemTile.tscn")
 const _GEM_CHANCE := 0.05
 
 var player_spawn_points := [ 0,0, 6,0 ]
 var open_points := [ 1,4, 2,4, 3,4 ]
+
+onready var _enemies := $Enemies
 
 func _ready():
 	_add_barriers()
@@ -29,7 +34,8 @@ func _ready():
 	var enemy := preload("res://src/Enemy.tscn").instance()
 	enemy.position.x = open_points[0] * Game.TILE_WIDTH
 	enemy.position.y = open_points[1] * Game.TILE_HEIGHT
-	add_child(enemy)
+	_enemies.add_child(enemy)
+	enemy.connect("tree_exited", self, "_on_Enemy_tree_exited", [], CONNECT_ONESHOT)
 
 
 func _add_barriers():
@@ -67,3 +73,9 @@ func _is_in_serial_point_list(x:int, y:int, array)->bool:
 
 func _is_open_point(x:int, y:int)->bool:
 	return _is_in_serial_point_list(x,y,open_points)
+
+
+func _on_Enemy_tree_exited()->void:
+	if _enemies.get_child_count() == 0:
+		print("Level Complete")
+		emit_signal("complete")
