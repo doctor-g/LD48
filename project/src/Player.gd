@@ -11,20 +11,32 @@ var _start_location := Vector2.ZERO
 var _target_location := Vector2.ZERO
 var _accumulated_time := 0.0
 var _playable_area := Rect2(0,0,Game.WIDTH * Game.TILE_WIDTH, Game.HEIGHT * Game.TILE_HEIGHT)
+var _facing := Vector2.RIGHT
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed(prefix + "fire"):
+		var projectile : Node2D = preload("res://src/Projectile.tscn").instance()
+		projectile.position = position
+		projectile.direction = _facing
+		get_parent().add_child(projectile)
+		
+	
 	if not _moving:
 		var input_direction := Vector2.ZERO	
 		if Input.is_action_pressed(prefix + "move_left"):
 			input_direction.x -= 1
+			_facing = Vector2.LEFT
 		if Input.is_action_pressed(prefix + "move_right"):
 			input_direction.x += 1
+			_facing = Vector2.RIGHT
 		# Give horizontal movement priority over vertical movement.
 		if input_direction.x == 0:
 			if Input.is_action_pressed(prefix + "move_down"):
 				input_direction.y += 1
+				_facing = Vector2.DOWN
 			if Input.is_action_pressed(prefix + "move_up"):
 				input_direction.y -= 1
+				_facing = Vector2.UP
 		
 		if input_direction != Vector2.ZERO:
 			_start_location = position
