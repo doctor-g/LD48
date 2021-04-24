@@ -12,10 +12,6 @@ var _target_location := Vector2.ZERO
 var _accumulated_time := 0.0
 
 
-func _ready():
-	for s in get_groups():
-		print("I am in group " + s)
-
 func _physics_process(delta):
 	if not _moving:
 		var input_direction := Vector2.ZERO	
@@ -41,7 +37,11 @@ func _physics_process(delta):
 		var destination = _start_location.linear_interpolate(_target_location, percent)
 		var collision := move_and_collide(destination - position)
 		if collision != null:
-			print("Hit a thing: %s" % str(collision.collider))
+			# If players run into each other, both are obliterated
+			if collision.collider.is_in_group("players"):
+				collision.collider.queue_free()
+				queue_free()
+			
 		if percent >= 1.0:
 			_moving= false
 			_accumulated_time = 0
