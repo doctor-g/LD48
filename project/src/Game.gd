@@ -8,8 +8,12 @@ const TILE_WIDTH := 64
 const TILE_HEIGHT := 64
 const TILE_SIZE := Vector2(TILE_WIDTH, TILE_HEIGHT)
 
-var _scores = [0, 0]
+var _scores : Array = [0, 0]
 
+# Reset all the state variables
+func start():
+	_scores = [0, 0]
+	
 
 func add_points(player:int, points:int):
 	if points != 0:

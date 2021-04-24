@@ -1,9 +1,13 @@
 extends KinematicBody2D
 tool
 
+signal died
+
 var speed := 200
+
 var _direction := Vector2(1,0)
 var _stunned := false
+var _dead := false
 
 var _color := Color.green
 
@@ -42,7 +46,13 @@ func stun():
 
 func damage():
 	print("Enemy has died")
+	_dead = true
+	emit_signal("died")
 	queue_free()
+
+
+func is_dead()->bool:
+	return _dead
 
 
 func _on_StunTimer_timeout():

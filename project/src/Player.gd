@@ -16,6 +16,9 @@ var _accumulated_time := 0.0
 var _playable_area := Rect2(0,0,Game.WIDTH * Game.TILE_WIDTH, Game.HEIGHT * Game.TILE_HEIGHT)
 var _facing := Vector2.RIGHT
 
+var _dead := false # Timing issues can cause death to happen more than once,
+				   # so track it here to make sure we don't emit the signal twice.
+
 onready var _shot_cooldown_timer := $ShotCooldownTimer
 
 func _physics_process(delta):
@@ -110,6 +113,8 @@ func _compute_seconds_per_tile()->float:
 
 
 func damage():
-	print("Alas, I am dead")
-	emit_signal("died")
-	queue_free()
+	if not _dead:
+		print("Alas, I am dead")
+		_dead = true
+		emit_signal("died")
+		queue_free()

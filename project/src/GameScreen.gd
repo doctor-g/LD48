@@ -1,6 +1,5 @@
 extends Control
 
-
 func _ready():
 	_connect_signals_to($Level)
 	
@@ -11,21 +10,36 @@ func _connect_signals_to(level)->void:
 
 
 func _on_Level_complete():
-	var message := preload("res://src/UI/LevelCompletePopup.tscn").instance()
+	_show_end_control("Level Complete", "_on_EndControl_done_complete")
+	
+	
+func _show_end_control(text:String, callback:String)->void:
+	var message := preload("res://src/UI/EndControl.tscn").instance()
+	message.text = text
 	add_child(message)
+	message.connect("done", self, callback, [message], CONNECT_ONESHOT)
 	get_tree().paused = true
-	yield(message, "done")
+
+
+func _on_EndControl_done_complete(message:Control):
 	remove_child(message)
 	
+	# Replace completed level with a new level
 	var new_level : Node2D = load("res://src/Level.tscn").instance()
 	new_level.position = $Level.position
 	remove_child($Level)
 	new_level.name = "Level"
+	_connect_signals_to(new_level)
 	add_child(new_level)
 	
 	get_tree().paused = false
-	
+
 
 func _on_game_over():
-	get_tree().paused = true
-	print("GAME IS OVER")
+	_show_end_control("Game Over!", "_on_EndControl_done_gameover")
+	
+
+func _on_EndControl_done_gameover(_message:Control)->void:
+	get_tree().paused = false
+	get_tree().change_scene("res://src/Screens/TitleScreen.tscn")
+	

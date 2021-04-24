@@ -44,7 +44,7 @@ func _ready():
 	enemy.position.x = open_points[0] * Game.TILE_WIDTH
 	enemy.position.y = open_points[1] * Game.TILE_HEIGHT
 	_enemies.add_child(enemy)
-	enemy.connect("tree_exited", self, "_on_Enemy_tree_exited", [], CONNECT_ONESHOT)
+	enemy.connect("died", self, "_on_Enemy_died")
 
 
 func _add_barriers():
@@ -84,8 +84,13 @@ func _is_open_point(x:int, y:int)->bool:
 	return _is_in_serial_point_list(x,y,open_points)
 
 
-func _on_Enemy_tree_exited()->void:
-	if _enemies.get_child_count() == 0:
+func _on_Enemy_died()->void:
+	var remaining_enemies := 0
+	for child in _enemies.get_children():
+		if not child.is_dead():
+			remaining_enemies += 1
+	
+	if remaining_enemies == 0:
 		if _remaining_players == 2:
 			emit_signal("complete")
 		else:
