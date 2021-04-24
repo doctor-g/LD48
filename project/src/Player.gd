@@ -41,6 +41,12 @@ func _physics_process(delta):
 			if collision.collider.is_in_group("players"):
 				collision.collider.queue_free()
 				queue_free()
+			# If a player runs into an enemy, it is obliterated
+			elif collision.collider.is_in_group("enemies"):
+				queue_free()
+			# If a player runs into dirt, dig it out
+			elif collision.collider.is_in_group("tiles"):
+				collision.collider.queue_free()
 			
 		if percent >= 1.0:
 			_moving= false
