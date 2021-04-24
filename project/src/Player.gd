@@ -1,11 +1,12 @@
 class_name Player
 extends KinematicBody2D
 
-export var prefix := "p1_"
+# The player "number", starting with zero.
+export var index := 0 setget _set_index
 export var speed := 220.0 setget _set_speed
 
 var _seconds_per_tile := _compute_seconds_per_tile()
-
+var _prefix : String = "p1_"
 var _moving := false
 var _start_location := Vector2.ZERO
 var _target_location := Vector2.ZERO
@@ -14,7 +15,7 @@ var _playable_area := Rect2(0,0,Game.WIDTH * Game.TILE_WIDTH, Game.HEIGHT * Game
 var _facing := Vector2.RIGHT
 
 func _physics_process(delta):
-	if Input.is_action_just_pressed(prefix + "fire"):
+	if Input.is_action_just_pressed(_prefixed("fire")):
 		var projectile : Node2D = preload("res://src/Projectile.tscn").instance()
 		projectile.position = position
 		projectile.direction = _facing
@@ -23,18 +24,18 @@ func _physics_process(delta):
 	
 	if not _moving:
 		var input_direction := Vector2.ZERO	
-		if Input.is_action_pressed(prefix + "move_left"):
+		if Input.is_action_pressed(_prefixed("move_left")):
 			input_direction.x -= 1
 			_facing = Vector2.LEFT
-		if Input.is_action_pressed(prefix + "move_right"):
+		if Input.is_action_pressed(_prefixed("move_right")):
 			input_direction.x += 1
 			_facing = Vector2.RIGHT
 		# Give horizontal movement priority over vertical movement.
 		if input_direction.x == 0:
-			if Input.is_action_pressed(prefix + "move_down"):
+			if Input.is_action_pressed(_prefixed("move_down")):
 				input_direction.y += 1
 				_facing = Vector2.DOWN
-			if Input.is_action_pressed(prefix + "move_up"):
+			if Input.is_action_pressed(_prefixed("move_up")):
 				input_direction.y -= 1
 				_facing = Vector2.UP
 		
@@ -67,11 +68,22 @@ func _physics_process(delta):
 					damage()
 			# If a player runs into dirt, dig it out
 			elif collision.collider.is_in_group("tiles"):
+				Game.add_points(index, 5)
 				collision.collider.queue_free()
 			
 		if percent >= 1.0:
 			_moving= false
 			_accumulated_time = 0
+
+
+func _prefixed(event:String)->String:
+	return _prefix + event
+
+
+func _set_index(value:int)->void:
+	assert (value>=0)
+	index = value
+	_prefix = "p%d_" % (index+1)
 
 
 func _draw():
