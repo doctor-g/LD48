@@ -14,12 +14,15 @@ var _accumulated_time := 0.0
 var _playable_area := Rect2(0,0,Game.WIDTH * Game.TILE_WIDTH, Game.HEIGHT * Game.TILE_HEIGHT)
 var _facing := Vector2.RIGHT
 
+onready var _shot_cooldown_timer := $ShotCooldownTimer
+
 func _physics_process(delta):
-	if Input.is_action_just_pressed(_prefixed("fire")):
+	if _can_shoot() and Input.is_action_just_pressed(_prefixed("fire")):
 		var projectile : Node2D = preload("res://src/Projectile.tscn").instance()
 		projectile.position = position
 		projectile.direction = _facing
 		get_parent().add_child(projectile)
+		_shot_cooldown_timer.start()
 		
 	
 	if not _moving:
@@ -74,6 +77,10 @@ func _physics_process(delta):
 		if percent >= 1.0:
 			_moving= false
 			_accumulated_time = 0
+
+
+func _can_shoot()->bool:
+	return _shot_cooldown_timer.time_left == 0
 
 
 func _prefixed(event:String)->String:
