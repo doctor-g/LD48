@@ -16,8 +16,3 @@ func _physics_process(delta):
 		elif body.is_in_group("enemies"):
 			body.stun()
 			queue_free()
-
-
-func _draw():
-	draw_circle(Vector2(Game.TILE_WIDTH/2.0, Game.TILE_HEIGHT/2.0), Game.TILE_WIDTH/4.0, Color.yellow)
-	

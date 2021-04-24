@@ -1,9 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/Projectile.gd" type="Script" id=1]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 20.0
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.495455 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=3]
+colors = PoolColorArray( 1, 0.926483, 0.144531, 1, 0.435294, 0.435294, 0.435294, 0.694118 )
 
 [node name="Projectile" type="Area2D"]
 script = ExtResource( 1 )
@@ -11,3 +17,22 @@ script = ExtResource( 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 32, 32 )
 shape = SubResource( 1 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( 32, 32 )
+amount = 20
+lifetime = 0.4
+randomness = 0.5
+lifetime_randomness = 0.3
+local_coords = false
+emission_shape = 1
+emission_sphere_radius = 4.0
+spread = 180.0
+initial_velocity = 50.0
+initial_velocity_random = 0.3
+scale_amount = 16.0
+scale_amount_random = 0.2
+scale_amount_curve = SubResource( 2 )
+color_ramp = SubResource( 3 )
+hue_variation = 0.1
+hue_variation_random = 0.5
