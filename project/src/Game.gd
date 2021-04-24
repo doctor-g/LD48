@@ -19,3 +19,7 @@ func add_points(player:int, points:int):
 
 func get_score(player:int)->int:
 	return _scores[player]
+
+
+func form_action_prefix(index:int)->String:
+	return "p%d_" % (index+1)

@@ -91,7 +91,7 @@ func _prefixed(event:String)->String:
 func _set_index(value:int)->void:
 	assert (value>=0)
 	index = value
-	_prefix = "p%d_" % (index+1)
+	_prefix = Game.form_action_prefix(index)
 
 
 func _draw():

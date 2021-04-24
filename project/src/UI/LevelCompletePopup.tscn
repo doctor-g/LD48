@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/UI/ClickinLabel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/UI/LevelCompletePopup.gd" type="Script" id=2]
+
+[node name="LevelCompletePopup" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_top = 434.0
+margin_right = 1024.0
+margin_bottom = 448.0
+text = "Level Complete"
+align = 1
+
+[node name="ClickinLabels" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 452.0
+margin_right = 1024.0
+margin_bottom = 466.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ClickinLabel1" parent="VBoxContainer/ClickinLabels" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 510.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+align = 1
+
+[node name="ClickinLabel2" parent="VBoxContainer/ClickinLabels" instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 514.0
+margin_right = 1024.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+align = 1
+index = 1
+
+[connection signal="done" from="VBoxContainer/ClickinLabels/ClickinLabel1" to="." method="_on_ClickinLabel_done"]
+[connection signal="done" from="VBoxContainer/ClickinLabels/ClickinLabel2" to="." method="_on_ClickinLabel_done"]
