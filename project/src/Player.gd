@@ -1,5 +1,5 @@
+class_name Player
 extends KinematicBody2D
-tool
 
 export var prefix := "p1_"
 export var speed := 220.0 setget _set_speed
@@ -11,6 +11,10 @@ var _start_location := Vector2.ZERO
 var _target_location := Vector2.ZERO
 var _accumulated_time := 0.0
 
+
+func _ready():
+	for s in get_groups():
+		print("I am in group " + s)
 
 func _physics_process(delta):
 	if not _moving:
@@ -34,7 +38,10 @@ func _physics_process(delta):
 	else:
 		_accumulated_time += delta
 		var percent := min(_accumulated_time / _seconds_per_tile, 1.0)
-		position = _start_location.linear_interpolate(_target_location, percent)
+		var destination = _start_location.linear_interpolate(_target_location, percent)
+		var collision := move_and_collide(destination - position)
+		if collision != null:
+			print("Hit a thing: %s" % str(collision.collider))
 		if percent >= 1.0:
 			_moving= false
 			_accumulated_time = 0

@@ -3,11 +3,13 @@
 [ext_resource path="res://src/Player.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 50, 50 )
+extents = Vector2( 32, 32 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"players",
+]]
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 50, 50 )
+position = Vector2( 32, 32 )
 shape = SubResource( 1 )
