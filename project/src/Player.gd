@@ -67,6 +67,7 @@ func _physics_process(delta):
 			elif collision.collider.is_in_group("enemies"):
 				if collision.collider.is_stunned():
 					collision.collider.damage()
+					Game.add_points(index, 250)
 				else:
 					damage()
 			# If a player runs into dirt, dig it out
