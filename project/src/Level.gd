@@ -65,10 +65,10 @@ func _ready():
 func _add_barriers():
 	for i in range(0, Game.WIDTH):
 		_add_barrier(i, -1)
-		_add_barrier(i, Game.HEIGHT+1)
+		_add_barrier(i, Game.HEIGHT)
 	for j in range(0, Game.HEIGHT):
 		_add_barrier(-1, j)
-		_add_barrier(Game.WIDTH+1, j)
+		_add_barrier(Game.WIDTH, j)
 
 
 func _add_barrier(x:int, y:int)->void:
