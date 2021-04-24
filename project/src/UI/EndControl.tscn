@@ -1,7 +1,23 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/UI/EndControl.gd" type="Script" id=1]
 [ext_resource path="res://src/UI/ClickinLabel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/Fonts/RammettoOne/RammettoOne-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/Fonts/OpenSans/OpenSans-Regular.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 82
+outline_size = 12
+outline_color = Color( 0.184314, 0.184314, 0.184314, 1 )
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+outline_size = 2
+outline_color = Color( 0.109804, 0.109804, 0.109804, 1 )
+use_filter = true
+font_data = ExtResource( 4 )
 
 [node name="EndControl" type="Control"]
 pause_mode = 2
@@ -21,16 +37,17 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_top = 434.0
-margin_right = 1024.0
-margin_bottom = 448.0
+margin_top = 386.0
+margin_right = 960.0
+margin_bottom = 525.0
+custom_fonts/font = SubResource( 1 )
 text = "Level Complete"
 align = 1
 
 [node name="ClickinLabels" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 452.0
-margin_right = 1024.0
-margin_bottom = 466.0
+margin_top = 529.0
+margin_right = 960.0
+margin_bottom = 574.0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -39,19 +56,23 @@ __meta__ = {
 [node name="ClickinLabel1" parent="VBoxContainer/ClickinLabels" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 510.0
-margin_bottom = 14.0
+margin_right = 478.0
+margin_bottom = 45.0
 size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
 align = 1
+pre_text = "Click to Continue"
 
 [node name="ClickinLabel2" parent="VBoxContainer/ClickinLabels" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 514.0
-margin_right = 1024.0
-margin_bottom = 14.0
+margin_left = 482.0
+margin_right = 960.0
+margin_bottom = 45.0
 size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
 align = 1
+pre_text = "Click to Continue"
 index = 1
 
 [connection signal="done" from="VBoxContainer/ClickinLabels/ClickinLabel1" to="." method="_on_ClickinLabel_done"]
