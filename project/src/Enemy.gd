@@ -1,5 +1,4 @@
 extends KinematicBody2D
-tool
 
 signal died
 
@@ -9,12 +8,8 @@ var _direction := Vector2(1,0)
 var _stunned := false
 var _dead := false
 
-var _color := Color.green
-
+onready var _sprite := $AnimatedSprite
 onready var _stun_timer := $StunTimer
-
-func _draw():
-	draw_rect(Rect2(0,0,Game.TILE_WIDTH, Game.TILE_HEIGHT), _color)
 
 
 func _physics_process(delta):
@@ -33,8 +28,8 @@ func is_stunned() -> bool:
 
 func stun():
 	_stunned = true
-	_color = Color.bisque
-	update() # Force draw to be called
+	_sprite.playing = false
+	_sprite.frame = 0
 	
 	# If it was previously stunned, add stun length to it
 	if _stun_timer.time_left >= 0:
@@ -56,7 +51,7 @@ func is_dead()->bool:
 
 func _on_StunTimer_timeout():
 	_stunned = false
-	_color = Color.green
+	_sprite.playing = true
 	update()
 
 
