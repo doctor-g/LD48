@@ -45,11 +45,11 @@ func _physics_process(delta):
 		if collision != null:
 			# If players run into each other, both are obliterated
 			if collision.collider.is_in_group("players"):
-				collision.collider.queue_free()
-				queue_free()
+				collision.collider.damage()
+				damage()
 			# If a player runs into an enemy, it is obliterated
 			elif collision.collider.is_in_group("enemies"):
-				queue_free()
+				damage()
 			# If a player runs into dirt, dig it out
 			elif collision.collider.is_in_group("tiles"):
 				collision.collider.queue_free()
@@ -70,3 +70,8 @@ func _set_speed(value:float)->void:
 
 func _compute_seconds_per_tile()->float:
 	return Game.TILE_WIDTH / speed
+
+
+func damage():
+	print("Alas, I am dead")
+	queue_free()
