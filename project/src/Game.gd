@@ -12,8 +12,9 @@ var _scores = [0, 0]
 
 
 func add_points(player:int, points:int):
-	_scores[player] += points
-	emit_signal("score_changed", player, points, _scores[player])
+	if points != 0:
+		_scores[player] += points
+		emit_signal("score_changed", player, points, _scores[player])
 
 
 func get_score(player:int)->int:

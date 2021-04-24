@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://src/DirtTile.gd" type="Script" id=1]
+[ext_resource path="res://src/Tiles/GemTile.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
 
-[node name="DirtTile" type="StaticBody2D" groups=[
+[node name="GemTile" type="StaticBody2D" groups=[
 "tiles",
 ]]
 script = ExtResource( 1 )

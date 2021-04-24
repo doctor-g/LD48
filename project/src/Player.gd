@@ -72,7 +72,7 @@ func _physics_process(delta):
 					damage()
 			# If a player runs into dirt, dig it out
 			elif collision.collider.is_in_group("tiles"):
-				Game.add_points(index, 5)
+				Game.add_points(index, collision.collider.value)
 				collision.collider.queue_free()
 			
 		if percent >= 1.0:
