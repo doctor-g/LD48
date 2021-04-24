@@ -15,17 +15,23 @@ var _target_location := Vector2.ZERO
 var _accumulated_time := 0.0
 var _playable_area := Rect2(0,0,Game.WIDTH * Game.TILE_WIDTH, Game.HEIGHT * Game.TILE_HEIGHT)
 var _facing := Vector2.RIGHT
+var _stunned := false
 
 var _dead := false # Timing issues can cause death to happen more than once,
 				   # so track it here to make sure we don't emit the signal twice.
 
 onready var _shot_cooldown_timer := $ShotCooldownTimer
+onready var _stun_timer := $StunTimer
 
 func _physics_process(delta):
+	if _stunned:
+		return
+	
 	if _can_shoot() and Input.is_action_just_pressed(_prefixed("fire")):
 		var projectile : Node2D = preload("res://src/Projectile.tscn").instance()
 		projectile.position = position
 		projectile.direction = _facing
+		projectile.creator = self
 		get_parent().add_child(projectile)
 		_shot_cooldown_timer.start()
 		
@@ -100,7 +106,8 @@ func _set_index(value:int)->void:
 
 
 func _draw():
-	draw_rect(Rect2(0,0, Game.TILE_WIDTH, Game.TILE_HEIGHT), Color.rebeccapurple)
+	draw_rect(Rect2(0,0, Game.TILE_WIDTH, Game.TILE_HEIGHT), \
+		Color.whitesmoke if _stunned else Color.rebeccapurple)
 
 
 func _set_speed(value:float)->void:
@@ -114,7 +121,17 @@ func _compute_seconds_per_tile()->float:
 
 func damage():
 	if not _dead:
-		print("Alas, I am dead")
 		_dead = true
 		emit_signal("died")
 		queue_free()
+
+
+func stun():
+	_stunned = true
+	_stun_timer.start()
+	update() # Force draw
+
+
+func _on_StunTimer_timeout():
+	_stunned = false
+	update()
