@@ -19,6 +19,7 @@ var _monster_spawn_points := []
 var _remaining_players := 2
 
 onready var _enemies := $Enemies
+onready var _tiles := $Tiles
 
 func _ready():
 	_add_barriers()
@@ -40,13 +41,12 @@ func _ready():
 		for j in range(1, Game.HEIGHT):
 			if not _is_player_spawn_point(i,j) and not _is_open_point(i,j):
 				var tile : Node2D = DirtTile.instance()
-				add_child(tile)
+				_tiles.add_child(tile)
 				var tile_position = Vector2(i * Game.TILE_WIDTH, j * Game.TILE_HEIGHT)
 				tile.position = tile_position
 				if randf() < 0.05:
 					var diamond :Node2D= preload("res://src/Tiles/Diamond.tscn").instance()
-					diamond.position = tile_position
-					add_child(diamond)
+					tile.add_child(diamond)
 
 	# Make the players
 	for i in range(0,2):

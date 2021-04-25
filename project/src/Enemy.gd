@@ -10,6 +10,7 @@ var _dead := false
 
 onready var _sprite := $AnimatedSprite
 onready var _stun_timer := $StunTimer
+onready var _burst_particles := $BurstParticles
 
 
 func _physics_process(delta):
@@ -41,7 +42,11 @@ func stun():
 
 func damage():
 	_dead = true
+	_burst_particles.emitting = true
+	$CollisionShape2D.disabled = true
+	_sprite.visible = false
 	emit_signal("died")
+	yield(get_tree().create_timer(1), "timeout")
 	queue_free()
 
 
