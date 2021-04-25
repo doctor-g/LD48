@@ -32,6 +32,8 @@ func stun():
 	_sprite.playing = false
 	_sprite.frame = 0
 	
+	_sprite.material.set_shader_param("pulse", 1.0)
+	
 	# If it was previously stunned, add stun length to it
 	if _stun_timer.time_left >= 0:
 		_stun_timer.start()
@@ -57,7 +59,7 @@ func is_dead()->bool:
 func _on_StunTimer_timeout():
 	_stunned = false
 	_sprite.playing = true
-	update()
+	_sprite.material.set_shader_param("pulse", 0.0)
 
 
 func set_direction(direction:Vector2):
