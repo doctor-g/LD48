@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/UI/HUD.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/Music/theme.ogg" type="AudioStream" id=3]
 [ext_resource path="res://src/GameScreen.gd" type="Script" id=4]
 
 [sub_resource type="Gradient" id=1]
@@ -39,8 +38,3 @@ __meta__ = {
 position = Vector2( 0, 64 )
 
 [node name="HUD" parent="." instance=ExtResource( 2 )]
-
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
-autoplay = true
-bus = "Music"

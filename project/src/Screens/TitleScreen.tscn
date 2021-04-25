@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/Screens/TitleScreen.gd" type="Script" id=1]
 [ext_resource path="res://assets/Fonts/RammettoOne/RammettoOne-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://src/UI/ClickinLabel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/Styles/clickin_font.tres" type="DynamicFont" id=4]
 [ext_resource path="res://assets/Fonts/NotoSansJP/NotoSansJP-Medium.otf" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/Music/theme.ogg" type="AudioStream" id=6]
 
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 0.839844, 0.413361, 0, 1, 0.84375, 0.643524, 0.0428467, 1 )
@@ -104,6 +105,10 @@ margin_bottom = 870.518
 custom_fonts/font = SubResource( 4 )
 text = "Player 1: Gamepad or WASD+Z
 Player 2: Gamepad or ↑←↓→+Space"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+autoplay = true
 
 [connection signal="done" from="HBoxContainer/ClickinLabel" to="." method="_on_ClickinLabel_done"]
 [connection signal="done" from="HBoxContainer/ClickinLabel2" to="." method="_on_ClickinLabel_done"]
