@@ -26,10 +26,12 @@ func _on_EndControl_done_complete(message:Control):
 	remove_child(message)
 	
 	# Replace completed level with a new level
-	var new_level : Node2D = load("res://src/Level.tscn").instance()
+	var new_level : Level = load("res://src/Level.tscn").instance()
 	new_level.position = $Level.position
+	new_level.enemy_count = $Level.enemy_count + 1
 	remove_child($Level)
 	new_level.name = "Level"
+	$HUD.level = new_level
 	_connect_signals_to(new_level)
 	add_child(new_level)
 	
