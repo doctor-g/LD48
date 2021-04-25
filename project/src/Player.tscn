@@ -1,13 +1,17 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/Styles/player_1_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://src/Player.gd" type="Script" id=2]
+[ext_resource path="res://assets/Styles/stunnable.shader" type="Shader" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 30, 30 )
 
-[sub_resource type="Animation" id=2]
-resource_name = "stun"
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 3 )
+shader_param/pulse = 0.0
+
+[sub_resource type="Animation" id=3]
 length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:self_modulate")
@@ -40,6 +44,7 @@ wait_time = 3.0
 one_shot = true
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
+material = SubResource( 2 )
 position = Vector2( 32, 32 )
 frames = ExtResource( 1 )
 animation = "walk"
@@ -47,6 +52,6 @@ centered = false
 offset = Vector2( -32, -32 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/stun = SubResource( 2 )
+anims/stun = SubResource( 3 )
 
 [connection signal="timeout" from="StunTimer" to="." method="_on_StunTimer_timeout"]

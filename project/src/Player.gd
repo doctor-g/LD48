@@ -26,6 +26,7 @@ onready var _stun_timer := $StunTimer
 
 func _ready():
 	_sprite.frames = load("res://assets/Styles/player_%d_spriteframes.tres" % (index+1))
+	_sprite.material = _sprite.material.duplicate()
 
 func _physics_process(delta):
 	if _stunned:
@@ -145,9 +146,9 @@ func stun():
 	_stunned = true
 	_stun_timer.start()
 	$AnimationPlayer.play("stun")
-	update() # Force draw
+	_sprite.material.set_shader_param("pulse", 1.0)
 
 
 func _on_StunTimer_timeout():
 	_stunned = false
-	update()
+	_sprite.material.set_shader_param("pulse", 0.0)
