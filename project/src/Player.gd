@@ -144,6 +144,7 @@ func damage():
 func stun():
 	_stunned = true
 	_stun_timer.start()
+	$AnimationPlayer.play("stun")
 	update() # Force draw
 
 
