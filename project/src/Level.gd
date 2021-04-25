@@ -43,11 +43,8 @@ func _ready():
 		var y = center_y_options[randi() % center_y_options.size()]
 		var spawn_point := Vector2(x,y)
 		
-		print("Spawn point is " + str (spawn_point))
-		print("Recorded ones are " + str(monster_spawn_points))
 		# Make sure we are not already spawning there
 		if monster_spawn_points.find(spawn_point) == -1:
-			print("Not a duplicate")
 			monster_spawn_points.append(spawn_point)
 			
 			# Spawn the enemy

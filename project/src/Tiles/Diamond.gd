@@ -1,6 +1,6 @@
 extends Area2D
 
-export var value := 200
+export var value := 50
 
 func _on_Diamond_body_entered(body):
 	if body.is_in_group("players"):
