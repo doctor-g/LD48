@@ -13,6 +13,10 @@ onready var _stun_timer := $StunTimer
 onready var _burst_particles := $BurstParticles
 
 
+func _ready():
+	_sprite.material = _sprite.material.duplicate()
+
+
 func _physics_process(delta):
 	if not _stunned:
 		var collision := move_and_collide(_direction * speed * delta)
