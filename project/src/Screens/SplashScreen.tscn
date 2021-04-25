@@ -1,0 +1,95 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/Fonts/NotoSansJP/NotoSansJP-Medium.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://src/Screens/SplashScreen.gd" type="Script" id=2]
+
+[sub_resource type="Gradient" id=1]
+colors = PoolColorArray( 0.839844, 0.413361, 0, 1, 0.84375, 0.643524, 0.0428467, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+width = 960
+
+[sub_resource type="Animation" id=3]
+resource_name = "Fall"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 48, 630.102 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Node2D:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 4.7 ]
+}
+
+[sub_resource type="DynamicFont" id=4]
+size = 38
+outline_size = 1
+outline_color = Color( 0.721569, 0.364706, 0.12549, 1 )
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="SplashScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="Node2D" parent="."]
+position = Vector2( 960, 0 )
+rotation = 1.5708
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+margin_right = 960.0
+margin_bottom = 960.0
+texture = SubResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Fall = SubResource( 3 )
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Instructions" type="Label" parent="Node2D"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 98.7341
+margin_top = 408.564
+margin_right = 871.734
+margin_bottom = 680.564
+custom_fonts/font = SubResource( 4 )
+text = "Grab a friend
+
+Get some controllers
+or get cozy at the keyboard
+
+Click to continue"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

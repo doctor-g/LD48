@@ -7,21 +7,15 @@
 [ext_resource path="res://assets/Fonts/NotoSansJP/NotoSansJP-Medium.otf" type="DynamicFontData" id=5]
 [ext_resource path="res://assets/Music/theme.ogg" type="AudioStream" id=6]
 
-[sub_resource type="Gradient" id=1]
+[sub_resource type="Gradient" id=6]
 colors = PoolColorArray( 0.839844, 0.413361, 0, 1, 0.84375, 0.643524, 0.0428467, 1 )
 
 [sub_resource type="GradientTexture" id=2]
-gradient = SubResource( 1 )
+gradient = SubResource( 6 )
 width = 960
 
 [sub_resource type="DynamicFont" id=3]
 size = 32
-outline_size = 1
-outline_color = Color( 0.721569, 0.364706, 0.12549, 1 )
-use_filter = true
-font_data = ExtResource( 5 )
-
-[sub_resource type="DynamicFont" id=6]
 outline_size = 1
 outline_color = Color( 0.721569, 0.364706, 0.12549, 1 )
 use_filter = true
@@ -60,6 +54,12 @@ tracks/1/keys = {
 "update": 0,
 "values": [ -10.2, -10.2, 4.2, 0.0 ]
 }
+
+[sub_resource type="DynamicFont" id=7]
+outline_size = 1
+outline_color = Color( 0.721569, 0.364706, 0.12549, 1 )
+use_filter = true
+font_data = ExtResource( 5 )
 
 [node name="TitleScreen" type="Control"]
 anchor_right = 1.0
@@ -130,24 +130,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CopyrightInfo" type="Label" parent="."]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -285.0
-margin_top = -105.0
-margin_right = 285.0
-custom_fonts/font = SubResource( 6 )
-text = "©2021 Paul Gestwicki
-Created for Ludum Dare 48
-https://github.com/doctor-g/LD48
-"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 autoplay = true
@@ -172,6 +154,23 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "LogoFall"
 anims/LogoFall = SubResource( 5 )
+
+[node name="CopyrightInfo" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -285.0
+margin_top = -105.0
+margin_right = 285.0
+custom_fonts/font = SubResource( 7 )
+text = "©2021 Paul Gestwicki
+Created for Ludum Dare 48
+https://github.com/doctor-g/LD48"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="done" from="HBoxContainer/ClickinLabel" to="." method="_on_ClickinLabel_done"]
 [connection signal="done" from="HBoxContainer/ClickinLabel2" to="." method="_on_ClickinLabel_done"]
