@@ -21,8 +21,10 @@ func _physics_process(delta):
 	if not _stunned:
 		var collision := move_and_collide(_direction * speed * delta)
 		if collision != null:
-			if collision.collider.is_in_group("tiles") or collision.collider.is_in_group("barriers"):
-				_direction *= -1
+			if collision.collider.is_in_group("tiles") \
+				or collision.collider.is_in_group("barriers") \
+				or collision.collider.is_in_group("enemies"):
+					_direction *= -1
 			elif collision.collider.is_in_group("players"):
 				collision.collider.damage()
 
