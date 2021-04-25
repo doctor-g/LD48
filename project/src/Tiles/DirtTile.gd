@@ -20,6 +20,7 @@ func _ready():
 
 func dig():
 	$CollisionShape2D.disabled = true
+	$DigParticles.emitting = true
 	
 	# Play the sfx with some variation in pitch
 	$DigSound.pitch_scale = rand_range(1.0, 1.5)

@@ -87,3 +87,17 @@ centered = false
 [node name="DigSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 bus = "SFX"
+
+[node name="DigParticles" type="CPUParticles2D" parent="."]
+position = Vector2( 32, 32 )
+emitting = false
+amount = 20
+lifetime = 0.7
+one_shot = true
+emission_shape = 2
+emission_rect_extents = Vector2( 32, 32 )
+spread = 180.0
+gravity = Vector2( 0, 50 )
+initial_velocity = 50.0
+scale_amount = 2.0
+color = Color( 0.8, 0.682353, 0.396078, 1 )
