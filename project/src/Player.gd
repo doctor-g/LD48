@@ -138,6 +138,7 @@ func _compute_seconds_per_tile()->float:
 func damage():
 	if not _dead:
 		_dead = true
+		$DeathSound.play()
 		$AnimationPlayer.play("destroy")
 		emit_signal("died")
 		yield(get_tree().create_timer(1.0), "timeout")
@@ -147,6 +148,7 @@ func damage():
 func stun():
 	_stunned = true
 	_stun_timer.start()
+	$StunSound.play()
 	$AnimationPlayer.play("stun")
 	_sprite.material.set_shader_param("pulse", 1.0)
 
@@ -154,3 +156,4 @@ func stun():
 func _on_StunTimer_timeout():
 	_stunned = false
 	_sprite.material.set_shader_param("pulse", 0.0)
+	$WakeupSound.play()

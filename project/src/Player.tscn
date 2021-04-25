@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/Styles/player_1_spriteframes.tres" type="SpriteFrames" id=1]
 [ext_resource path="res://src/Player.gd" type="Script" id=2]
 [ext_resource path="res://assets/Styles/stunnable.shader" type="Shader" id=3]
+[ext_resource path="res://assets/SFX/dead.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/SFX/stun.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/SFX/wakeup.wav" type="AudioStream" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 30, 30 )
@@ -82,5 +85,17 @@ offset = Vector2( -32, -32 )
 pause_mode = 2
 anims/destroy = SubResource( 4 )
 anims/stun = SubResource( 3 )
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
+stream = ExtResource( 4 )
+bus = "SFX"
+
+[node name="StunSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
+[node name="WakeupSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+bus = "SFX"
 
 [connection signal="timeout" from="StunTimer" to="." method="_on_StunTimer_timeout"]

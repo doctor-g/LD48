@@ -4,6 +4,7 @@ export var value := 200
 
 func _on_Diamond_body_entered(body):
 	if body.is_in_group("players"):
+		$PickupSound.play()
 		Game.add_points(body.index, value)
 		$AnimationPlayer.play("FadeOut")
 		$CPUParticles2D.emitting = true

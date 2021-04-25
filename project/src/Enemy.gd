@@ -36,6 +36,8 @@ func stun():
 	_sprite.playing = false
 	_sprite.frame = 0
 	
+	$StunSound.play()
+	
 	_sprite.material.set_shader_param("pulse", 1.0)
 	
 	# If it was previously stunned, add stun length to it
@@ -50,6 +52,7 @@ func damage():
 	_dead = true
 	_burst_particles.emitting = true
 	$CollisionShape2D.disabled = true
+	$DefeatSound.play()
 	_sprite.visible = false
 	emit_signal("died")
 	yield(get_tree().create_timer(1), "timeout")
@@ -64,6 +67,7 @@ func _on_StunTimer_timeout():
 	_stunned = false
 	_sprite.playing = true
 	_sprite.material.set_shader_param("pulse", 0.0)
+	$WakeupSound.play()
 
 
 func set_direction(direction:Vector2):
