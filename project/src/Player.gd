@@ -30,8 +30,9 @@ func _ready():
 	if index==1:
 		_sprite.flip_h = true
 
+
 func _physics_process(delta):
-	if _stunned:
+	if _stunned or _dead:
 		return
 	
 	if _can_shoot() and Input.is_action_just_pressed(_prefixed("fire")):
