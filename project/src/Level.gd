@@ -14,12 +14,13 @@ const DirtTile := preload("res://src/Tiles/DirtTile.tscn")
 const _GEM_CHANCE := 0.05
 
 export var duration := 30
+export var enemy_count := 4
+export var diamond_chance := 0.04
 
 var _seconds_remaining : float
 
 var _player_spawn_points := [ 2,0, Game.WIDTH-3,0 ]
-var _open_points := [ 1,4, 2,4, 3,4 ]
-var _monster_spawn_points := []
+var _open_points := []
 
 var _remaining_players := 2
 var _running := true
@@ -32,27 +33,50 @@ func _ready():
 	
 	_add_barriers()
 	
+	var monster_spawn_points := []
+	
 	# Determine where to spawn enemies and create openings in the map
 	var center_x_options := range(1, Game.WIDTH-2)
-	var center_y_options := range(2, Game.HEIGHT)
-	while _monster_spawn_points.size() < 4:
+	var center_y_options := range(2, Game.HEIGHT-1)
+	while monster_spawn_points.size() < enemy_count:
 		var x = center_x_options[randi() % center_x_options.size()]
 		var y = center_y_options[randi() % center_y_options.size()]
 		var spawn_point := Vector2(x,y)
-		if _monster_spawn_points.find(spawn_point) == -1:
-			_monster_spawn_points.append(spawn_point)
-			_open_points.append_array([x-1, y, x, y, x+1, y])
+		
+		print("Spawn point is " + str (spawn_point))
+		print("Recorded ones are " + str(monster_spawn_points))
+		# Make sure we are not already spawning there
+		if monster_spawn_points.find(spawn_point) == -1:
+			print("Not a duplicate")
+			monster_spawn_points.append(spawn_point)
+			
+			# Spawn the enemy
+			var enemy := preload("res://src/Enemy.tscn").instance()
+			enemy.position = Vector2(spawn_point.x * Game.TILE_WIDTH, \
+									 spawn_point.y * Game.TILE_HEIGHT)
+			_enemies.add_child(enemy)
+			enemy.connect("died", self, "_on_Enemy_died")
+			
+			# Equal chance of horizontal or vertical
+			if randf()<0.5:
+				_open_points.append_array([x-1,y, x,y, x+1,y])
+				enemy.set_direction(Vector2.LEFT if randf()<0.5 else Vector2.RIGHT)
+			else:
+				_open_points.append_array([x,y-1, x,y, x,y+1])
+				enemy.set_direction(Vector2.UP if randf()<0.5 else Vector2.DOWN)
+			
+			
 	
-	# Populate the level
+	# Create the dirt tiles and diamonds
 	# No tiles on the first row.
 	for i in range(0, Game.WIDTH):
 		for j in range(1, Game.HEIGHT):
-			if not _is_player_spawn_point(i,j) and not _is_open_point(i,j):
+			if not _is_open_point(i,j):
 				var tile : Node2D = DirtTile.instance()
 				_tiles.add_child(tile)
 				var tile_position = Vector2(i * Game.TILE_WIDTH, j * Game.TILE_HEIGHT)
 				tile.position = tile_position
-				if randf() < 0.05:
+				if randf() < diamond_chance:
 					var diamond :Node2D= preload("res://src/Tiles/Diamond.tscn").instance()
 					diamond.position = tile.position
 					_tiles.add_child(diamond)
@@ -65,15 +89,6 @@ func _ready():
 		player.position.y = _player_spawn_points[1 + i*2] * Game.TILE_HEIGHT
 		player.connect("died", self, "_on_Player_died")
 		add_child(player)
-	
-	# Make the enemies
-	for spawn_point in _monster_spawn_points:
-		var enemy := preload("res://src/Enemy.tscn").instance()
-		enemy.position = Vector2(spawn_point.x * Game.TILE_WIDTH, \
-								 spawn_point.y * Game.TILE_HEIGHT)
-		enemy.set_direction(Vector2.LEFT if randf()<0.5 else Vector2.RIGHT)
-		_enemies.add_child(enemy)
-		enemy.connect("died", self, "_on_Enemy_died")
 
 
 func _process(delta):
