@@ -28,15 +28,24 @@ __meta__ = {
 }
 
 [node name="Player1Label" type="Label" parent="SmallLabels"]
-margin_right = 478.0
+margin_right = 317.0
 margin_bottom = 27.0
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 1 )
 text = "Player 1"
 align = 1
 
+[node name="ClockLabel" type="Label" parent="SmallLabels"]
+margin_left = 321.0
+margin_right = 638.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 1 )
+text = "Time Left"
+align = 1
+
 [node name="Player2Label" type="Label" parent="SmallLabels"]
-margin_left = 482.0
+margin_left = 642.0
 margin_right = 960.0
 margin_bottom = 27.0
 size_flags_horizontal = 3
@@ -54,15 +63,24 @@ __meta__ = {
 }
 
 [node name="Player1Score" type="Label" parent="HBoxContainer"]
-margin_right = 478.0
+margin_right = 317.0
 margin_bottom = 48.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
 text = "1234"
 align = 1
 
+[node name="TimeLeft" type="Label" parent="HBoxContainer"]
+margin_left = 321.0
+margin_right = 638.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "30"
+align = 1
+
 [node name="Player2Score" type="Label" parent="HBoxContainer"]
-margin_left = 482.0
+margin_left = 642.0
 margin_right = 960.0
 margin_bottom = 48.0
 size_flags_horizontal = 3

@@ -1,3 +1,4 @@
+class_name Level
 extends Node2D
 
 # Emitted when all enemies are removed
@@ -12,16 +13,23 @@ signal game_over
 const DirtTile := preload("res://src/Tiles/DirtTile.tscn")
 const _GEM_CHANCE := 0.05
 
+export var duration := 30
+
+var _seconds_remaining : float
+
 var _player_spawn_points := [ 2,0, Game.WIDTH-3,0 ]
 var _open_points := [ 1,4, 2,4, 3,4 ]
 var _monster_spawn_points := []
 
 var _remaining_players := 2
+var _running := true
 
 onready var _enemies := $Enemies
 onready var _tiles := $Tiles
 
 func _ready():
+	_seconds_remaining = duration
+	
 	_add_barriers()
 	
 	# Determine where to spawn enemies and create openings in the map
@@ -66,6 +74,18 @@ func _ready():
 		enemy.set_direction(Vector2.LEFT if randf()<0.5 else Vector2.RIGHT)
 		_enemies.add_child(enemy)
 		enemy.connect("died", self, "_on_Enemy_died")
+
+
+func _process(delta):
+	if _running:
+		_seconds_remaining = max(0, _seconds_remaining - delta)
+		if _seconds_remaining <= 0:
+			emit_signal("game_over")
+			_running = false
+
+
+func get_seconds_remaining() -> float:
+	return _seconds_remaining
 
 
 func _add_barriers():

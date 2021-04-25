@@ -14,14 +14,14 @@ colors = PoolColorArray( 0.839844, 0.413361, 0, 1, 0.84375, 0.643524, 0.0428467,
 gradient = SubResource( 1 )
 width = 960
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 size = 32
 outline_size = 1
 outline_color = Color( 0.721569, 0.364706, 0.12549, 1 )
 use_filter = true
 font_data = ExtResource( 5 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=4]
 size = 96
 outline_size = 5
 outline_color = Color( 0.921569, 0.372549, 0.0470588, 1 )
@@ -113,7 +113,7 @@ margin_left = 181.743
 margin_top = 771.518
 margin_right = 751.743
 margin_bottom = 870.518
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "Player 1: Gamepad or WASD+Z
 Player 2: Gamepad or ↑←↓→+Space"
 __meta__ = {
@@ -131,7 +131,7 @@ rotation = -0.178024
 [node name="Title" type="Label" parent="LogoHolder"]
 margin_right = 760.0
 margin_bottom = 163.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color_shadow = Color( 0.27451, 0.141176, 0, 1 )
 custom_constants/shadow_offset_x = 8
 custom_constants/shadow_offset_y = 10

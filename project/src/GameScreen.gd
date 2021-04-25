@@ -2,6 +2,7 @@ extends Control
 
 func _ready():
 	_connect_signals_to($Level)
+	$HUD.level = $Level
 	
 	
 func _connect_signals_to(level)->void:
