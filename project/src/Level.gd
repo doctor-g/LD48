@@ -46,7 +46,8 @@ func _ready():
 				tile.position = tile_position
 				if randf() < 0.05:
 					var diamond :Node2D= preload("res://src/Tiles/Diamond.tscn").instance()
-					tile.add_child(diamond)
+					diamond.position = tile.position
+					_tiles.add_child(diamond)
 
 	# Make the players
 	for i in range(0,2):
