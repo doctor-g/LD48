@@ -17,7 +17,11 @@ func _ready():
 func _unhandled_input(event):
 	if not done:
 		if event.is_action_released(Game.form_action_prefix(index) + "fire"):
+			$ClickinSound.play()
 			done = true
 			text = post_text
-			emit_signal("done")
-		
+			
+
+
+func _on_ClickinSound_finished():
+	emit_signal("done")
