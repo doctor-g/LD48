@@ -14,7 +14,7 @@ extents = Vector2( 30, 30 )
 shader = ExtResource( 3 )
 shader_param/pulse = 0.0
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "destroy"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:rotation_degrees")
@@ -41,7 +41,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1e-05 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:self_modulate")
@@ -83,8 +83,8 @@ offset = Vector2( -32, -32 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 pause_mode = 2
-anims/destroy = SubResource( 4 )
-anims/stun = SubResource( 3 )
+anims/destroy = SubResource( 3 )
+anims/stun = SubResource( 4 )
 
 [node name="DeathSound" type="AudioStreamPlayer" parent="."]
 pause_mode = 2

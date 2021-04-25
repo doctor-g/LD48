@@ -27,6 +27,8 @@ onready var _stun_timer := $StunTimer
 func _ready():
 	_sprite.frames = load("res://assets/Styles/player_%d_spriteframes.tres" % (index+1))
 	_sprite.material = _sprite.material.duplicate()
+	if index==1:
+		_sprite.flip_h = true
 
 func _physics_process(delta):
 	if _stunned:
