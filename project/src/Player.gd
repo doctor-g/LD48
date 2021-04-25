@@ -138,7 +138,9 @@ func _compute_seconds_per_tile()->float:
 func damage():
 	if not _dead:
 		_dead = true
+		$AnimationPlayer.play("destroy")
 		emit_signal("died")
+		yield(get_tree().create_timer(1.0), "timeout")
 		queue_free()
 
 
