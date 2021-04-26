@@ -4,6 +4,7 @@ const TITLE = preload("res://src/Screens/TitleScreen.tscn")
 
 # We only need to do the click-through on HTML5.
 func _ready():
+	randomize()
 	if OS.get_name() != "HTML5":
 		_go_to_title_screen()
 		
