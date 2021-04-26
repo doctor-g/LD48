@@ -5,14 +5,16 @@ _Goober Bros._ is a two-player arcade game in the classic cabinet style.
 You can [play online now](https://doctor-g.github.io/LD48) or download
 the native executables from [the releases page](https://github.com/doctor-g/LD48/releases).
 
-This game was created for [Ludum Dare 48](https://ldjam.com/events/ludum-dare/48).
+This game was created for [Ludum Dare 48](https://ldjam.com/events/ludum-dare/48). 
+
+Check out [the _Goober Bros._ page on ldjam.com.](https://ldjam.com/events/ludum-dare/48/goober-bros)
 
 
 ## Fonts
 
 The following third-party assets are included in the game:
 
-- [Rammetto One font](https://fonts.google.com/specimen/Rammetto+One) font licensed under OFL
+- [Rammetto One](https://fonts.google.com/specimen/Rammetto+One) font licensed under OFL
 - [NotoSans JP](https://fonts.google.com/specimen/Noto+Sans+JP) font licensed under OFL
 - [Kenney Pixel](https://www.kenney.nl/assets/kenney-fonts) font licensed under CC0 1.0 Universal.
 
